@@ -3,12 +3,25 @@ import streamlit as st
 # Configuración de la página
 st.set_page_config(page_title="Moral Machine Escolar", page_icon="🧠", layout="centered")
 
-# --- ESTILOS PERSONALIZADOS ---
+# --- ESTILOS PERSONALIZADOS (Mejoras visuales y control de tamaño) ---
 st.markdown("""
     <style>
     .main { background-color: #f8f9fa; }
-    .stButton>button { width: 100%; border-radius: 10px; height: 3em; font-weight: bold; }
+    /* Ajuste para que las imágenes no causen desborde vertical */
+    .stImage > img { max-height: 220px; object-fit: cover; width: 100%; border-radius: 12px; }
+    .stButton>button { width: 100%; border-radius: 10px; height: 3.3em; font-weight: bold; margin-bottom: 8px; }
     .title { text-align: center; color: #1E3A8A; font-family: 'Helvetica Neue', sans-serif; }
+    /* Pie de página elegante */
+    .custom-footer {
+        text-align: center;
+        margin-top: 50px;
+        padding-top: 20px;
+        border-top: 1px solid #e2e8f0;
+        color: #64748b;
+        font-size: 0.85rem;
+        font-family: 'Helvetica Neue', sans-serif;
+        letter-spacing: 0.5px;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -26,7 +39,8 @@ if 'sub_ruta' not in st.session_state:
 
 # --- PANTALLA DE INICIO / CONTEXTO ---
 if st.session_state.paso == 1:
-    st.image("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80", caption="El patio de la escuela escolar puede cambiar con un solo acto.")
+    # Nueva imagen de patio escolar optimizada en tamaño
+    st.image("https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=60", caption="El patio de la escuela puede cambiar con un solo acto.")
     
     st.info("""
     **Escenario Inicial:**
@@ -37,20 +51,20 @@ if st.session_state.paso == 1:
     
     st.markdown("### 🛑 PASO 1: Tu decisión como Espectador")
     
-    
-
     if st.button("📱 Opción A: Te da risa, te acercas a mirar y sacas tu teléfono para grabar."):
-            st.session_state.ruta = 'A'
-            st.session_state.paso = 2
-            st.rerun()
+        st.session_state.ruta = 'A'
+        st.session_state.paso = 2
+        st.rerun()
+        
     if st.button("🚶 Opción B: Te sientes incómodo, piensas 'no es mi problema' y te vas."):
-            st.session_state.ruta = 'B'
-            st.session_state.paso = 2
-            st.rerun()
+        st.session_state.ruta = 'B'
+        st.session_state.paso = 2
+        st.rerun()
+        
     if st.button("🛡️ Opción C: Te pones firme y le dices: 'Ya basta Mateo, devuélvele el teléfono'."):
-            st.session_state.ruta = 'C'
-            st.session_state.paso = 2
-            st.rerun()
+        st.session_state.ruta = 'C'
+        st.session_state.paso = 2
+        st.rerun()
 
 # --- PASO 2: CONSECUENCIAS Y SEGUNDA DECISIÓN ---
 elif st.session_state.paso == 2:
@@ -94,7 +108,7 @@ elif st.session_state.paso == 2:
 
     elif st.session_state.ruta == 'C':
         st.success("""
-        **Lo que pasó:** El grupo de Mateo se desarma. Al encontrar resistencia firme y pública, Mateo se ve expuesto, te dice 'qué amargado' pero le tira el teléfono a Lucas y se va.
+        **Lo que pasó:** El grupo de Mateo se desarma. Al encontrar resistencia firme y pública, Mateo se ve expuesto, te dice 'qué amargado' pero le tira el teléfono a Lucas and se va.
         
         *   **Impacto en Lucas (Víctima):** Siente un alivio enorme. Sabe que no está solo en el aula.
         *   **Impacto en el entorno:** Otros compañeros se te acercan y dicen: 'Qué bueno que te plantaste, nosotros no nos animábamos'. Cambiaste la norma social del aula.
@@ -115,12 +129,10 @@ elif st.session_state.paso == 3:
     st.markdown("## 📊 Evaluación de Impacto Psicológico")
     st.write("Este es el resultado medible de tus decisiones sobre el clima escolar:")
 
-    # Definición de variables según la ruta elegida para simular el impacto
     desconexión = 100 if st.session_state.sub_ruta == 'A1' else (50 if st.session_state.sub_ruta == 'A2' else 10)
     autoeficacia = 95 if st.session_state.sub_ruta == 'C1' else (75 if st.session_state.sub_ruta == 'C2' else (40 if st.session_state.sub_ruta == 'B2' else 5))
     afrontamiento = "Asertivo y con Red de Apoyo" if 'C' in st.session_state.ruta else ("Pasivo / Aislamiento" if 'B' in st.session_state.ruta else "Indefensión Aguda")
 
-    # Mostrar barras de indicadores
     st.markdown(f"**Desconexión Moral (Agresor/Cómplice): {desconexión}%**")
     st.progress(desconexión / 100)
     
@@ -139,7 +151,6 @@ elif st.session_state.paso == 3:
     elif 'C' in st.session_state.ruta:
         st.success("**Ruta del Espectador Defensor:** ¡Excelente! Mostraste valentía moral. Los agresores dependen del silencio del entorno; al poner un límite, transformaste tu escuela en un lugar seguro.")
 
-    # Preguntas de Debriefing para la charla escolar
     with st.expander("❓ Preguntas para debatir en el aula"):
         st.markdown("""
         1. Al ver los resultados, ¿te diste cuenta de cómo una omisión (no hacer nada) puede doler tanto como un golpe?
@@ -153,4 +164,5 @@ elif st.session_state.paso == 3:
         st.session_state.sub_ruta = None
         st.rerun()
 
-st.markdown("<br><hr><center><small>Recurso del Lic. Gustavo Almaras para encuentros en Colegios</small></center>", unsafe_allow_html=True)
+# --- PIE DE PÁGINA ELEGANTE (Al final de toda la App) ---
+st.markdown('<div class="custom-footer">Recurso del Lic. Gustavo Almaras para encuentros en Colegios</div>', unsafe_allow_html=True)
