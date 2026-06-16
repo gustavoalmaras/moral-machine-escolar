@@ -152,3 +152,5 @@ elif st.session_state.paso == 3:
         st.session_state.ruta = None
         st.session_state.sub_ruta = None
         st.rerun()
+
+st.markdown("<br><hr><center><small>Recurso del Lic. Gustavo Almaras para encuentros en Colegios</small></center>", unsafe_allow_html=True)
