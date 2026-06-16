@@ -37,17 +37,17 @@ if st.session_state.paso == 1:
     
     st.markdown("### 🛑 PASO 1: Tu decisión como Espectador")
     
-    col1, col2, col3 = st.columns(1)
-    with col1:
-        if st.button("📱 Opción A: Te da risa, te acercas a mirar y sacas tu teléfono para grabar."):
+    
+
+    if st.button("📱 Opción A: Te da risa, te acercas a mirar y sacas tu teléfono para grabar."):
             st.session_state.ruta = 'A'
             st.session_state.paso = 2
             st.rerun()
-        if st.button("🚶 Opción B: Te sientes incómodo, piensas 'no es mi problema' y te vas."):
+    if st.button("🚶 Opción B: Te sientes incómodo, piensas 'no es mi problema' y te vas."):
             st.session_state.ruta = 'B'
             st.session_state.paso = 2
             st.rerun()
-        if st.button("🛡️ Opción C: Te pones firme y le dices: 'Ya basta Mateo, devuélvele el teléfono'."):
+    if st.button("🛡️ Opción C: Te pones firme y le dices: 'Ya basta Mateo, devuélvele el teléfono'."):
             st.session_state.ruta = 'C'
             st.session_state.paso = 2
             st.rerun()
